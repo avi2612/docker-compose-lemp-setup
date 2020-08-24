@@ -22,10 +22,14 @@ services:
             - './config/nginx:/etc/nginx/conf.d'
 
     mariadb:
-        image: mariadb:10.3.9
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
         container_name: ${APP_NAME:?err}-mariadb
         restart: 'on-failure'
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?err}
+            MYSQL_DATABASE: ${MYSQL_DATABASE:?err}
         volumes:
             - ${PWD}
+            - ./mysql-dump:/docker-entrypoint-initdb.d
+
