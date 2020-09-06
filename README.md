@@ -7,7 +7,7 @@ this repository brings LEMP stack with docker compose version 3
 4. "db-dumps" directory will store mysql importing data
 
 
-
+-------------------------------------------
 .env file
 
  
@@ -15,6 +15,7 @@ this repository brings LEMP stack with docker compose version 3
    
    MYSQL_DATABASE=www_project
    
+-------------------------------------------   
 docker-compose up -d
 
 docker-compose ps
