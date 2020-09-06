@@ -35,8 +35,8 @@ services:
 
         restart: 'on-failure'
         environment:
-            MYSQL_ROOT_PASSWORD: ${my_sql_root_password}
-            MYSQL_DATABASE: ${mysql_database}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
 
         networks:
             - lemp
@@ -47,7 +47,7 @@ services:
         ports:
             - '8080:80'
         environment:
-            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             PMA_HOST: db
         links:
             - db
