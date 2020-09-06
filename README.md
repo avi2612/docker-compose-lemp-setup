@@ -1,11 +1,12 @@
 # Docker Compose For LEMP Stack
-this repository brings LEMP stack with docker compose version 3 
+This repository is based on v3 compose,it will install and setup Nginx, Php7.2, Mysql, phpmyadmin 
 
 1. Put your website data in "app" directory and configure sql connection properly
 2. "db-data" directory is mounted to database container /var/lib/mysql path
 3. "logs" directory is mounted to nginx webserver /var/log/nginx path
 4. "db-dumps" directory will store mysql importing data
 
+"phpmyadmin => ip_address:8080"
 
 -------------------------------------------
 .env file
