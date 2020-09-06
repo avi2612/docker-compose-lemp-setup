@@ -10,5 +10,6 @@ this repository brings LEMP stack with docker compose version 3
 
 .env file
 
-   MYSQL_ROOT_PASSWORD    123456
-   MYSQL_DATABASE         lemp_test
+ 
+   MYSQL_ROOT_PASSWORD=123456
+   MYSQL_DATABASE=www_project
