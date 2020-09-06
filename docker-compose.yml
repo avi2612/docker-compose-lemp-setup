@@ -1,35 +1,58 @@
 version: '3'
-services:
-    php:
-        # image: 'php:7.2-fpm'
-        build:
-            context: ./docker
-            dockerfile: php.Dockerfile
-        container_name: ${APP_NAME:?err}-php
-        volumes:
-            - './app:/var/www/html'
 
-    nginx:
-        image: nginx:latest
-        container_name: ${APP_NAME:?err}-nginx
+services:
+    web:
+        image: 'nginx:latest'
+        restart: 'on-failure'
         ports:
             - '80:80'
             - '443:443'
-        links:
-            - 'php'
         volumes:
-            - './app:/var/www/html'
-            - './config/nginx:/etc/nginx/conf.d'
-
-    mariadb:
-        image: mysql
+            - ./logs:/var/log/nginx
+            - ./app:/app
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+        links:
+            - php
+        networks:
+            - lemp
+    php:
+        build:
+            context: ./php
+            dockerfile: Dockerfile
+        restart: 'on-failure'
+        ports:
+            - '9000:9000'
+        volumes:
+            - ./app:/app
+        networks:
+            - lemp
+    db:
+        image: 'mysql:5.7.24'
         command: --default-authentication-plugin=mysql_native_password
-        container_name: ${APP_NAME:?err}-mariadb
+        volumes:
+            - ./db-data:/var/lib/mysql
+            - ./db-dumps:/docker-entrypoint-initdb.d
+
         restart: 'on-failure'
         environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?err}
-            MYSQL_DATABASE: ${MYSQL_DATABASE:?err}
-        volumes:
-            - ${PWD}
-            - ./mysql-dump:/docker-entrypoint-initdb.d
+            MYSQL_ROOT_PASSWORD: ${my_sql_root_password}
+            MYSQL_DATABASE: ${mysql_database}
 
+        networks:
+            - lemp
+
+    phpmyadmin:
+        image: 'phpmyadmin/phpmyadmin'
+        restart: always
+        ports:
+            - '8080:80'
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
+            PMA_HOST: db
+        links:
+            - db
+        networks:
+            - lemp
+
+networks:
+    lemp:
