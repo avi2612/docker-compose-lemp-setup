@@ -14,4 +14,4 @@ this repository brings LEMP stack with docker compose version 3
    MYSQL_ROOT_PASSWORD=123456
    MYSQL_DATABASE=www_project
    
-### NOTE => MySQL port is connected with host port 3306. So, can be accessible remotely, To restrict/secure it use any not common random port. 
+### NOTE => MySQL port is mapped with host port 3306. So, can be accessible remotely, To secure this use any not common random port. 
