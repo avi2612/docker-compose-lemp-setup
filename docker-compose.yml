@@ -43,18 +43,5 @@ services:
         networks:
             - lemp
 
-    phpmyadmin:
-        image: 'phpmyadmin/phpmyadmin'
-        restart: always
-        ports:
-            - '8080:80'
-        environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-            PMA_HOST: db
-        links:
-            - db
-        networks:
-            - lemp
-
 networks:
     lemp:
